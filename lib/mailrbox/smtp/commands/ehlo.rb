@@ -1,12 +1,9 @@
-require "mailrbox/smtp/commands/base"
+require "mailrbox/smtp/commands/helo"
 
 module MailRBox
   module SMTP
     module Commands
-      class Ehlo < Base
-        def response
-          "250 Hello"
-        end
+      class Ehlo < Helo
       end
     end
   end
