@@ -2,6 +2,11 @@ require File.dirname(File.expand_path(__FILE__)) + '/helper'
 require 'mailrbox'
 
 class SMTPServerTest < Test::Unit::TestCase
+  class << self
+    def startup
+      puts "STARTUP"
+    end
+  end
 
   PORT = 2500
 
@@ -18,13 +23,14 @@ class SMTPServerTest < Test::Unit::TestCase
   end
 
   def test_connection_to_smtp_server
+    sleep 0.1
     Net::SMTP.start('localhost', PORT) do |smtp|
       assert smtp.is_a? Net::SMTP
     end
   end
 
   def test_send_message_through_smtp_server
-    skip
+    sleep 0.1
     smtp = Net::SMTP.new('localhost', PORT)
     smtp.start do |smtp|
       message = "From: test@example.com\r\n" +

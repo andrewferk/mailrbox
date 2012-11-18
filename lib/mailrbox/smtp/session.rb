@@ -10,7 +10,7 @@ module MailRBox
       def initialize(client)
         @client = Client.new(client)
         initiate_session
-        init_command_listener
+        init_transport_listener
       end
 
       # Session Initiation
@@ -21,7 +21,7 @@ module MailRBox
 
       # Listen for messages from the client, and delegate response,
       # until the client's session has closed.
-      def init_command_listener
+      def init_transport_listener
         begin
           message = @client.gets
           command = MailRBox::SMTP::Commands::Factory.instance.build(message)

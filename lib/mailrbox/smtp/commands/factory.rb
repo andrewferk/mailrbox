@@ -2,6 +2,10 @@ require "singleton"
 require "mailrbox/smtp/commands/ehlo"
 require "mailrbox/smtp/commands/helo"
 require "mailrbox/smtp/commands/quit"
+require "mailrbox/smtp/commands/mail"
+require "mailrbox/smtp/commands/rcpt"
+require "mailrbox/smtp/commands/data"
+require "mailrbox/smtp/commands/base"
 
 module MailRBox
   module SMTP
@@ -12,7 +16,10 @@ module MailRBox
         COMMANDS = {
           :ehlo => Ehlo,
           :helo => Helo,
-          :quit => Quit
+          :quit => Quit,
+          :mail => Mail,
+          :rcpt => Rcpt,
+          :data => Data
         }
 
         # Parse a message for the command, and build an object
@@ -23,7 +30,14 @@ module MailRBox
           # remaining is the command's arguments
           command, arguments = message.split(/\s/, 2)
 
-          COMMANDS[command.downcase.to_sym].new(arguments)
+          klass = COMMANDS[command.downcase.to_sym]
+          if klass
+            builder = klass.new(arguments)
+          else
+            builder = MailRBox::SMTP::Commands::Base.new(arguments)
+          end
+
+          return builder
         end
       end
     end

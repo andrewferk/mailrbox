@@ -19,7 +19,9 @@ module MailRBox
 
       def init_application_listener
         loop do
+          #puts "here"
           Thread.start(@server.accept) do |client|
+            #puts "here2"
             Session.new(client)
           end
         end
