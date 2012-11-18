@@ -1,5 +1,5 @@
 require File.dirname(File.expand_path(__FILE__)) + '/helper'
-require 'correspondent'
+require 'mailrbox'
 
 class SMTPServerTest < Test::Unit::TestCase
 
@@ -8,7 +8,7 @@ class SMTPServerTest < Test::Unit::TestCase
   def setup
     # Create a new subprocess, and start the SMTP Server
     @smtp_proc = fork do
-      server = Correspondent::SMTPServer.new(PORT);
+      server = MailRBox::SMTP::Server.new(PORT);
     end
   end
 
