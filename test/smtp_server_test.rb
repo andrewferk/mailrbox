@@ -1,36 +1,15 @@
 require File.dirname(File.expand_path(__FILE__)) + '/helper'
 require 'mailrbox'
 
-class SMTPServerTest < Test::Unit::TestCase
-  class << self
-    def startup
-      puts "STARTUP"
-    end
-  end
-
-  PORT = 2500
-
-  def setup
-    # Create a new subprocess, and start the SMTP Server
-    @smtp_proc = fork do
-      server = MailRBox::SMTP::Server.new(PORT);
-    end
-  end
-
-  def teardown
-    # Kill the SMTP Server
-    Process.kill("TERM", @smtp_proc)
-  end
+class SMTPServerTest < MiniTest::Unit::TestCase
 
   def test_connection_to_smtp_server
-    sleep 0.1
     Net::SMTP.start('localhost', PORT) do |smtp|
       assert smtp.is_a? Net::SMTP
     end
   end
 
   def test_send_message_through_smtp_server
-    sleep 0.1
     smtp = Net::SMTP.new('localhost', PORT)
     smtp.start do |smtp|
       message = "From: test@example.com\r\n" +
