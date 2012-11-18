@@ -3,22 +3,37 @@ require 'correspondent'
 
 class SMTPServerTest < Test::Unit::TestCase
 
-  def test_smtp
+  PORT = 2500
 
-    smtp_proc = fork do
-      server = Correspondent::SMTPServer.new(2500)
+  def setup
+    # Create a new subprocess, and start the SMTP Server
+    @smtp_proc = fork do
+      server = Correspondent::SMTPServer.new(PORT);
     end
+  end
 
-    begin
-      Net::SMTP.start('localhost', 2500) do |smtp|
-        assert smtp.is_a? Net::SMTP
-      end
-    rescue Exception => e
-      puts "Exception occured: " + e.message
+  def teardown
+    # Kill the SMTP Server
+    Process.kill("TERM", @smtp_proc)
+  end
+
+  def test_connection_to_smtp_server
+    Net::SMTP.start('localhost', PORT) do |smtp|
+      assert smtp.is_a? Net::SMTP
     end
+  end
 
-    Process.kill("TERM", smtp_proc)
-
+  def test_send_message_through_smtp_server
+    skip
+    smtp = Net::SMTP.new('localhost', PORT)
+    smtp.start do |smtp|
+      message = "From: test@example.com\r\n" +
+        "To: andrewferk@gmail.com\r\n" +
+        "Subject: Hi Andrew\r\n\r\n" +
+        "This is the body.\r\n"
+      smtp.send_message(message, "test@example.com", "andrewferk@gmail.com")
+    end
+    assert smtp.is_a? Net::SMTP
   end
 
 end
