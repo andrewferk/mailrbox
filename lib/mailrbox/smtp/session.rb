@@ -16,7 +16,7 @@ module MailRBox
       # Session Initiation
       # http://tools.ietf.org/html/rfc5321#section-3.1
       def initiate_session
-        @client.send_command("220")
+        send_command("220")
       end
 
       # Listen for messages from the client, and delegate response,
@@ -25,8 +25,17 @@ module MailRBox
         begin
           message = @client.gets
           command = MailRBox::SMTP::Commands::Factory.instance.build(message)
-          command.respond(@client)
+          command.respond(self)
         end until @client.closed?
+      end
+
+      # Send a command to the client, ensuring it is terminated with a <CRLF>.
+      def send_command(command)
+        @client.write "#{command}\r\n"
+      end
+
+      def close
+        @client.close
       end
 
     end

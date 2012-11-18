@@ -12,8 +12,8 @@ module MailRBox
           "504"
         end
 
-        def respond(client)
-          client.send_command response
+        def respond(session)
+          session.send_command response
         end
       end
     end

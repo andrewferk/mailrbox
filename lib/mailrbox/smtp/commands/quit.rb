@@ -8,9 +8,9 @@ module MailRBox
           "221 Bye"
         end
 
-        def respond(client)
-          super(client)
-          client.close
+        def respond(session)
+          super(session)
+          session.close
         end
       end
     end
