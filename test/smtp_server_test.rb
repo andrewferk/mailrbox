@@ -1,16 +1,16 @@
 require File.dirname(File.expand_path(__FILE__)) + '/helper'
-require 'mailrbox'
+require "net/smtp"
 
 class SMTPServerTest < MiniTest::Unit::TestCase
 
   def test_connection_to_smtp_server
-    Net::SMTP.start('localhost', PORT) do |smtp|
+    Net::SMTP.start('localhost', SMTP_PORT) do |smtp|
       assert smtp.is_a? Net::SMTP
     end
   end
 
   def test_send_message_through_smtp_server
-    smtp = Net::SMTP.new('localhost', PORT)
+    smtp = Net::SMTP.new('localhost', SMTP_PORT)
     smtp.start do |smtp|
       message = "From: test@example.com\r\n" +
         "To: andrewferk@gmail.com\r\n" +

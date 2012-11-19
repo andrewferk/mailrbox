@@ -1,7 +1,7 @@
 require "mailrbox/client"
 
 module MailRBox
-  module SMTP
+  module POP3
     class Client < MailRBox::Client
     end
   end

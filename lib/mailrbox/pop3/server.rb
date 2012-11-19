@@ -1,12 +1,12 @@
 require "mailrbox/server"
-require "mailrbox/smtp/session"
-require "mailrbox/smtp/client"
+require "mailrbox/pop3/session"
+require "mailrbox/pop3/client"
 
 module MailRBox
-  module SMTP
+  module POP3
     class Server < MailRBox::Server
 
-      def initialize(port = 25)
+      def initialize(port = 110)
         super(port)
       end
 

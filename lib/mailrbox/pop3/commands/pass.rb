@@ -1,15 +1,14 @@
-require "mailrbox/command"
+require "mailrbox/pop3/commands/base"
 
 module MailRBox
-  module SMTP
+  module POP3
     module Commands
-      class Base < MailRBox::Command
-
+      class Pass < Base
         def response
-          "504"
+          "+OK"
         end
-
       end
     end
   end
 end
+
