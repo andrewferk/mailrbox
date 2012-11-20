@@ -9,4 +9,10 @@ class POP3ServerTest < MiniTest::Unit::TestCase
     end
   end
 
+  def test_pop3_empty
+    pop = Net::POP3.start('localhost', POP_PORT, 'dummy', 'dummmy') do |pop|
+      assert pop.mails.empty?
+    end
+  end
+
 end
