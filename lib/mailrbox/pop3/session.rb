@@ -1,11 +1,12 @@
 require "mailrbox/session"
 require "mailrbox/pop3/commands/factory"
+require "mailrbox/pop3/client"
 
 module MailRBox
   module POP3
     class Session < MailRBox::Session
 
-      def initiate_session
+      def handshake
         send_command("+OK")
       end
 

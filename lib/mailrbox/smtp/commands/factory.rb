@@ -11,16 +11,16 @@ module MailRBox
   module SMTP
     module Commands
       class Factory < MailRBox::CommandFactory
-
-        COMMANDS = {
-          :ehlo => Ehlo,
-          :helo => Helo,
-          :quit => Quit,
-          :mail => Mail,
-          :rcpt => Rcpt,
-          :data => Data
-        }
-
+        def commands
+          {
+            :ehlo => Ehlo,
+            :helo => Helo,
+            :quit => Quit,
+            :mail => Mail,
+            :rcpt => Rcpt,
+            :data => Data
+          }
+        end
       end
     end
   end

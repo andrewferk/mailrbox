@@ -1,6 +1,5 @@
 require "mailrbox/server"
 require "mailrbox/smtp/session"
-require "mailrbox/smtp/client"
 
 module MailRBox
   module SMTP
@@ -10,8 +9,8 @@ module MailRBox
         super(port)
       end
 
-      def init_session(client)
-        Session.new(client)
+      def session_class
+        MailRBox::SMTP::Session
       end
 
     end

@@ -1,5 +1,6 @@
 require "mailrbox/session"
 require "mailrbox/smtp/commands/factory"
+require "mailrbox/smtp/client"
 
 module MailRBox
   module SMTP
@@ -7,7 +8,7 @@ module MailRBox
 
       # Session Initiation
       # http://tools.ietf.org/html/rfc5321#section-3.1
-      def initiate_session
+      def handshake
         send_command("220")
       end
 
