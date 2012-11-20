@@ -9,7 +9,7 @@ with a test suite, and an object oriented and domain driven design.
 
 ## Design
 
-![SMTP Class Diagram](https://raw.github.com/andrewferk/mailrbox/master/docs/images/smtp_class_diagram.png)
+[Reference Wiki](https://github.com/andrewferk/mailrbox/wiki/Design)
 
 ## Test Suite
 
