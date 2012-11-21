@@ -1,4 +1,5 @@
 require "socket"
+require "mailrbox/connect_listeners/threaded_listener"
 
 module MailRBox
 
@@ -6,16 +7,22 @@ module MailRBox
   # given port, and then accept connections. When a connection is accepted,
   # a new Session is created, along with having the Client passed along.
   class Server
-
-    # The port the server is expected to listen to.
-    attr_accessor :port
+    include ConnectListeners
 
     # Initialize the Server by assigning the port, and initializing transport
     # protocol and connection listeners.
-    def initialize(port)
+    def initialize(port, options = {})
       @port = port
+      @backlog = options[:backlog] || 20
+    end
+
+    def start
       init_transport_listener
       init_connect_listener
+    end
+
+    def stop
+      stop_connect_listener
     end
 
     private
@@ -28,16 +35,13 @@ module MailRBox
     # Begin listening to the given port using the TCP transport protocol.
     def init_transport_listener
       @server = TCPServer.open(@port)
+      @server.listen @backlog
     end
 
     # Begin listening to new connections, and delegating session
     # initialization
     def init_connect_listener
-      loop do
-        Thread.start(@server.accept) do |client|
-          init_session(client)
-        end
-      end
+      start_connect_listener
     end
 
     # When a new connection occurs, initialize a new Session with the client,

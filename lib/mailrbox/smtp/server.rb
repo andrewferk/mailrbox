@@ -5,8 +5,8 @@ module MailRBox
   module SMTP
     class Server < MailRBox::Server
 
-      def initialize(port = 25)
-        super(port)
+      def initialize(port = 25, options = {})
+        super(port, options)
       end
 
       def session_class
