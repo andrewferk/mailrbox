@@ -6,13 +6,16 @@ module MailRBox
 
     # The client that initiated the session.
     attr_accessor :client
+    
+    attr_accessor :storage
 
     # Initialize the Session by wrapping the current Ruby TCPSocket
     # representation of the client in a domain Client, completing the
     # handshake process with the client, and begin listening for messages
     # from the client.
-    def initialize(client)
-      @client = client_class.new(client)
+    def initialize(client, storage)
+      @client = client
+      @storage = storage
       handshake
       init_message_listener
     end
@@ -39,12 +42,6 @@ module MailRBox
     # Command. This is required and must be overridden when creating a
     # concrete Session.
     def command_factory
-    end
-
-    # The defined concrete Client class to use when wrapping the TCPSocket.
-    # This is required and must be overridden when creating a concrete
-    # Session.
-    def client_class
     end
 
     # Listen for messages from the client, and delegate message

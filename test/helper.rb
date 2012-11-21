@@ -11,16 +11,11 @@ class MiniTestWithHooksUnit < MiniTest::Unit
   def before_suites
     # Create a new subprocess, and start the Servers
     @proc = fork do
-      smtp_server = MailRBox::SMTP::Server.new(SMTP_PORT, {:backlog => 100})
-      smtp_server.start
-      pop3_server = MailRBox::POP3::Server.new(POP_PORT, {:backlog => 100})
-      pop3_server.start
-      begin
-        loop { sleep 5 }
-      rescue Interrupt => e
-        smtp_server.stop
-        pop3_server.stop
-      end
+      MailRBox.single_process_blocking_build({
+        :smtp_port => SMTP_PORT,
+        :pop3_port => POP_PORT,
+        :smtp_backlog => 100
+      })
     end
   end
 

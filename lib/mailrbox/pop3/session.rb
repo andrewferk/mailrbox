@@ -1,6 +1,5 @@
 require "mailrbox/session"
 require "mailrbox/pop3/commands/factory"
-require "mailrbox/pop3/client"
 
 module MailRBox
   module POP3
@@ -12,10 +11,6 @@ module MailRBox
 
       def command_factory
         MailRBox::POP3::Commands::Factory
-      end
-
-      def client_class
-        MailRBox::POP3::Client
       end
 
     end

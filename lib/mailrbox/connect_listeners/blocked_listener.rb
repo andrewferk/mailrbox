@@ -6,8 +6,8 @@ module MailRBox
     # This is blocking
     def start_connect_listener
       loop do
-        Thread.start(@server.accept) do |client|
-          init_session(client)
+        Thread.start(@server.accept) do |socket|
+          init_session(socket)
         end
       end
     end

@@ -14,6 +14,7 @@ module MailRBox
     def initialize(port, options = {})
       @port = port
       @backlog = options[:backlog] || 20
+      @storage = options[:storage]
     end
 
     def start
@@ -32,6 +33,12 @@ module MailRBox
     def session_class
     end
 
+    # The defined concrete Client class to use when wrapping the TCPSocket.
+    # This is required and must be overridden when creating a concrete
+    # Session.
+    def client_class
+    end
+
     # Begin listening to the given port using the TCP transport protocol.
     def init_transport_listener
       @server = TCPServer.open(@port)
@@ -46,9 +53,11 @@ module MailRBox
 
     # When a new connection occurs, initialize a new Session with the client,
     # which is still a Ruby TCPSocket.
-    def init_session(client)
-      session_class.new(client)
+    def init_session(socket)
+      client = client_class.new(socket)
+      session_class.new(client, storage)
     end
 
   end
+  p
 end

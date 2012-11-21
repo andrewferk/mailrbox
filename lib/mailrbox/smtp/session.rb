@@ -1,6 +1,5 @@
 require "mailrbox/session"
 require "mailrbox/smtp/commands/factory"
-require "mailrbox/smtp/client"
 
 module MailRBox
   module SMTP
@@ -14,10 +13,6 @@ module MailRBox
 
       def command_factory
         MailRBox::SMTP::Commands::Factory
-      end
-
-      def client_class
-        MailRBox::SMTP::Client
       end
 
     end

@@ -1,5 +1,6 @@
 require "mailrbox/server"
 require "mailrbox/pop3/session"
+require "mailrbox/pop3/client"
 
 module MailRBox
   module POP3
@@ -11,6 +12,10 @@ module MailRBox
 
       def session_class
         MailRBox::POP3::Session
+      end
+
+      def client_class
+        MailRBox::POP3::Client
       end
 
     end

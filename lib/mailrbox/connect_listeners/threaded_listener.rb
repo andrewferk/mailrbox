@@ -5,8 +5,8 @@ module MailRBox
     def start_connect_listener
       @threaded_listener = Thread.new do
         loop do
-          Thread.start(@server.accept) do |client|
-            init_session(client)
+          Thread.start(@server.accept) do |socket|
+            init_session(socket)
           end
         end
       end
