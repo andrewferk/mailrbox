@@ -7,6 +7,11 @@ module MailRBox
         def response
           "+OK"
         end
+
+        def respond(session)
+          super(session)
+          session.close
+        end
       end
     end
   end
