@@ -54,7 +54,7 @@ class SMTPServerTest < MiniTest::Unit::TestCase
 
   def concurrency_helper
     pool = Pool.new(40)
-    1000.times do |i|
+    100.times do |i|
       pool.schedule do
         Net::SMTP.start('localhost', SMTP_PORT) do |smtp|
           assert smtp.is_a? Net::SMTP
