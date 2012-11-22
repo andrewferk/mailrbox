@@ -55,9 +55,8 @@ module MailRBox
     # which is still a Ruby TCPSocket.
     def init_session(socket)
       client = client_class.new(socket)
-      session_class.new(client, storage)
+      session_class.new(client, @storage)
     end
 
   end
-  p
 end
