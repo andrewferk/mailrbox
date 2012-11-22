@@ -4,8 +4,9 @@ module MailRBox
   module POP3
     module Commands
       class Stat < Base
-        def response
-          "+OK 0 0"
+        def respond(session)
+          store = session.storage
+          session.send_command "+OK #{store.length} #{store.octet_size}"
         end
       end
     end

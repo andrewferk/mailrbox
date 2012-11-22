@@ -6,12 +6,13 @@ require 'mailrbox'
 
 SMTP_PORT = 2500
 POP_PORT = 1100
+@@mailrbox = nil
 
 class MiniTestWithHooksUnit < MiniTest::Unit
   def before_suites
     # Create a new subprocess, and start the Servers
     @proc = fork do
-      MailRBox.single_process_blocking_build({
+      mailrbox = MailRBox.single_process_blocking_build({
         :smtp_port => SMTP_PORT,
         :pop3_port => POP_PORT,
         :smtp_backlog => 100

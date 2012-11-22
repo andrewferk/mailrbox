@@ -3,6 +3,9 @@ require "mailrbox/pop3/commands/user"
 require "mailrbox/pop3/commands/pass"
 require "mailrbox/pop3/commands/quit"
 require "mailrbox/pop3/commands/stat"
+require "mailrbox/pop3/commands/list"
+require "mailrbox/pop3/commands/retr"
+require "mailrbox/pop3/commands/dele"
 
 module MailRBox
   module POP3
@@ -13,7 +16,10 @@ module MailRBox
             :user => User,
             :pass => Pass,
             :quit => Quit,
-            :stat => Stat
+            :stat => Stat,
+            :list => List,
+            :retr => Retr,
+            :dele => Dele
           }
         end
       end

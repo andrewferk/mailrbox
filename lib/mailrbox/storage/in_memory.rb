@@ -23,6 +23,10 @@ module MailRBox
       def length
         @storage.length
       end
+
+      def octet_size
+        @storage.inject(0) {|size, mesg| size + mesg.length}
+      end
     end
   end
 end

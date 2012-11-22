@@ -15,6 +15,7 @@ module MailRBox
         def respond(session)
           super(session)
           content = get_content(session.client)
+          session.storage << content
           session.send_command content_response
         end
 
