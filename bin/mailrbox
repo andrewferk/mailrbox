@@ -1,0 +1,34 @@
+#!/usr/bin/env ruby
+$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
+require 'optparse'
+require 'mailrbox'
+
+options = {
+  :smtp_port => 25,
+  :pop3_port => 110,
+  :smtp_backlog => 20,
+  :pop3_backlog => 10
+}
+parser = OptionParser.new do |opts|
+  opts.banner = "Usage: mailrbase.rb [options]"
+
+  opts.on("-s SMTP_PORT", "--smtp-port SMTP_PORT", "Assign SMTP port") do |o|
+    options[:smtp_port] = o.to_i
+  end
+
+  opts.on("-p POP3_PORT", "--pop3-port POP3_PORT", "Assign POP3 port") do |o|
+    options[:pop3_port] = o.to_i
+  end
+
+  opts.on("--smtp-backlog SMTP_BACKLOG", "Assign SMTP backlog") do |o|
+    options[:smtp_backlog] = o.to_i
+  end
+
+  opts.on("--pop3-backlog POP3_BACKLOG", "Assign POP3 backlog") do |o|
+    options[:pop3_backlog] = o.to_i
+  end
+end
+parser.parse!
+
+mailrbox = MailRBox.single_process_blocking_build(options)
+
