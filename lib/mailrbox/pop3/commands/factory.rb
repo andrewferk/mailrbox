@@ -9,6 +9,7 @@ require "mailrbox/pop3/commands/retr"
 require "mailrbox/pop3/commands/dele"
 require "mailrbox/pop3/commands/capa"
 require "mailrbox/pop3/commands/top"
+require "mailrbox/pop3/commands/noop"
 
 module MailRBox
   module POP3
@@ -24,7 +25,8 @@ module MailRBox
             :retr => Retr,
             :dele => Dele,
             :capa => Capa,
-            :top  => Top
+            :top  => Top,
+            :noop => Noop
           }
         end
 

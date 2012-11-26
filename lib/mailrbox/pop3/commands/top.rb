@@ -7,6 +7,7 @@ module MailRBox
         def respond(session)
           index, body_length = @arguments.split(" ")
           index = index.to_i - 1
+          body_length = body_length.to_i
           store = session.storage
           msg = "+OK\r\n"
           msg << store[index].header + "\r\n\r\n"
