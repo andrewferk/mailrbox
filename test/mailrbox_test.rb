@@ -20,6 +20,7 @@ class MailRBoxTest < MiniTest::Unit::TestCase
 
   def teardown
     @smtp_server.stop
+    @pop3_server.stop
   end
 
   def test_mailrbox_storage
@@ -36,6 +37,11 @@ class MailRBoxTest < MiniTest::Unit::TestCase
     end
     assert_equal(0, @storage.length)
     assert_equal(msg, @message)
+  end
+
+  def test_pop_top
+    @message[0] << "And another line\r\n"
+    @storage << @message
   end
   
 end

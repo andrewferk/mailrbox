@@ -1,4 +1,5 @@
 require "thread"
+require "mailrbox/email"
 
 module MailRBox
   module Storage
@@ -9,7 +10,7 @@ module MailRBox
       end
 
       def <<(content)
-        @storage << content
+        @storage << Email.new(content)
       end
 
       def [](index)

@@ -6,7 +6,7 @@ module MailRBox
       class Base < MailRBox::Command
 
         def response
-          ""
+          "-ERR"
         end
 
       end

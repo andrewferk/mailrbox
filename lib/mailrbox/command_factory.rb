@@ -20,7 +20,7 @@ module MailRBox
 
       # Lookup the command and create it with any remaining arguments from the
       # message
-      klass = commands[command.downcase.to_sym]
+      klass = commands[command.downcase.to_sym] || base
       klass.new(arguments)
     end
 
@@ -29,6 +29,9 @@ module MailRBox
     # The defined hash of command symbols to command Class for lookup. This is
     # required and must be overridden when creating a concrete CommandFactory.
     def commands
+    end
+
+    def base
     end
 
   end
